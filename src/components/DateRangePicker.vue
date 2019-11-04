@@ -255,12 +255,15 @@
         type: [Object, Boolean],
         default () {
           return {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'This month': [moment().startOf('month'), moment().endOf('month')],
-            'This year': [moment().startOf('year'), moment().endOf('year')],
-            'Last week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')],
-            'Last month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                "Last 5 Minutes": [moment().subtract(5, "m"), moment()],
+                "Last 15 Minutes": [moment().subtract(15, "m"), moment()],
+                "Last 30 Minutes": [moment().subtract(30, "m"), moment()],
+                "Last 1 Hours": [moment().subtract(1, "h"), moment()],
+                "Last 24 Hours": [moment().subtract(24, "h"), moment()],
+                "Last 7 Days": [moment().subtract(7, "d"), moment()],
+                "Last 30 Days": [moment().subtract(30, "d"), moment()],
+                "Last 90 Days": [moment().subtract(90, "d"), moment()],
+                "Last 1 Years": [moment().subtract(1, "y"), moment()]
           }
         }
       },

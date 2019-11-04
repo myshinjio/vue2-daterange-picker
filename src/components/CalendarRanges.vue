@@ -19,11 +19,23 @@
   export default {
     props: {
       ranges: Object,
+
       selected: Object
     },
     methods: {
       range_class (range) {
-        return { active: moment(this.selected.startDate).isSame(range[0], 'date') && moment(this.selected.endDate).isSame(range[1], 'date') };
+    
+       const startSelect = moment(this.selected.startDate);
+       const endSelect = moment(this.selected.endDate);
+       const selectTime = endSelect.diff( startSelect, 'minutes');
+ 
+
+        const start = moment(range[0]);
+        const end = moment(range[1]);
+        const rangeTime = end.diff( start, 'minutes');
+
+        return { active: selectTime == rangeTime };
+
       }
     },
   }
