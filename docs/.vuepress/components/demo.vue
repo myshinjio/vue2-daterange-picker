@@ -1,6 +1,6 @@
 <template>
     <div class="demo">
-
+{{dateRange}}
         <div class="py-5">
             <div class="form-group">
                 <label>Select range: </label>
@@ -17,7 +17,7 @@
                         :autoApply="autoApply"
                         v-model="dateRange"
                         :ranges="show_ranges ? undefined : false"
-                        @update="updateValues"
+                        @update="updateValues" 
                         @toggle="checkOpen"
                         :linkedCalendars="linkedCalendars"
                         :dateFormat="dateFormat"
@@ -221,13 +221,14 @@
     },
     methods: {
       updateValues (values) {
+        console.log(values);
         this.dateRange.startDate = moment(values.startDate).format('YYYY-MM-DD');
         this.dateRange.endDate = moment(values.endDate).format('YYYY-MM-DD');
 
-        console.log('event: update', values)
+ 
       },
       checkOpen (open) {
-        console.log('event: open', open)
+   
       },
       dateFormat (classes, date) {
         let yesterday = moment().subtract(1, 'day');

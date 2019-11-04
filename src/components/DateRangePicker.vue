@@ -43,6 +43,7 @@
                     >
                         <calendar-ranges class="col-12 col-md-auto"
                                          @clickRange="clickRange"
+                                        
                                          :ranges="ranges"
                                          :selected="{ startDate: start, endDate: end }"
                         ></calendar-ranges>
@@ -60,6 +61,7 @@
                                       :start="start" :end="end"
                                       :minDate="min" :maxDate="max"
                                       :show-dropdowns="showDropdowns"
+                                       :rangesClick="rangesClick"
 
                                       @change-month="changeLeftMonth"
                                       :date-format="dateFormatFn"
@@ -290,11 +292,12 @@
       }
     },
     data () {
+     
       let data = {locale: localeData(this.localeData)}
 
       let startDate = this.dateRange.startDate || null;
       let endDate = this.dateRange.endDate || null;
-
+      data.rangesClick = false;
       data.monthDate = startDate ? new Date(startDate) : new Date()
       data.nextMonthDate = nextMonth(data.monthDate)
       data.start = startDate ? new Date(startDate) : null
@@ -362,6 +365,7 @@
         return newDate;
       },
       dateClick (value) {
+        this.rangesClick = false;
         if (this.in_selection) {
           this.in_selection = false
           this.end = this.normalizeDatetime(value, this.end);
@@ -411,7 +415,7 @@
          * Emits when the user selects a range from the picker and clicks "apply" (if autoApply is true).
          * @param {json} value - json object containing the dates: {startDate, endDate}
          */
-        this.$emit('update', {startDate: this.start, endDate: this.end})
+        this.$emit('update', {startDate: this.start, endDate: this.end, custom: this.rangesClick })
       },
       clickAway () {
         if (this.open) {
@@ -425,9 +429,12 @@
         }
       },
       clickRange (value) {
+        console.log('click ranges');
         this.start = new Date(value[0])
         this.end = new Date(value[1])
         this.monthDate = new Date(value[0])
+        this.rangesClick = true;
+        console.log(this.monthDate);
         if (this.autoApply)
           this.clickedApply()
       },

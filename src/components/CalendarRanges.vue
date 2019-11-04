@@ -1,42 +1,36 @@
 <template>
     <div class="ranges">
         <ul v-if="ranges">
-            <li
-                    v-for="(value, key) in ranges"
-                    @click="$emit('clickRange', value)"
-                    :data-range-key="key"
-                    :key="key"
-                    :class="range_class(value)"
-            >{{key}}
+            <li v-for="(value, key) in ranges" @click="$emit('clickRange', value)" :data-range-key="key" :key="key" :class="range_class(value)">{{key}}
             </li>
         </ul>
     </div>
 </template>
 
 <script>
-  import moment from 'moment'
+import moment from 'moment'
 
-  export default {
+export default {
     props: {
-      ranges: Object,
+        ranges: Object,
 
-      selected: Object
+        selected: Object
     },
     methods: {
-      range_class (range) {
-    
-       const startSelect = moment(this.selected.startDate);
-       const endSelect = moment(this.selected.endDate);
-       const selectTime = endSelect.diff( startSelect, 'minutes');
- 
+        range_class(range) {
 
-        const start = moment(range[0]);
-        const end = moment(range[1]);
-        const rangeTime = end.diff( start, 'minutes');
+            const startSelect = moment(this.selected.startDate);
+            const endSelect = moment(this.selected.endDate);
+            const selectTime = endSelect.diff(startSelect, 'minutes');
 
-        return { active: selectTime == rangeTime };
 
-      }
+            const start = moment(range[0]);
+            const end = moment(range[1]);
+            const rangeTime = end.diff(start, 'minutes');
+
+            return { active: selectTime == rangeTime };
+
+        }
     },
-  }
+}
 </script>

@@ -1,7 +1,9 @@
 <template>
+
     <table class="table-condensed">
         <thead>
         <tr>
+          {{rangesClick}}
             <th class="prev available" @click="prevMonth"><span/></th>
             <th
                     v-if="showDropdowns"
@@ -53,6 +55,7 @@
   export default {
     name: 'calendar',
     props: {
+      rangesClick: Boolean,
       monthDate: Date,
       localeData: Object,
       start: Date,
